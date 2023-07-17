@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CsvSerializer;
+﻿using CsvIncrementalSerializer;
 
 namespace ConsoleApp1
 {
-    [CsvSerializable]
+    [CsvIncrementalSerializable]
     public class Person
     {
         public string FirstName { get; set; }

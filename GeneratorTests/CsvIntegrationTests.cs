@@ -28,6 +28,14 @@ namespace GeneratorTests
             var csv = TestClass.ToCsv(testObjects);
             Assert.Equal("Name,Age,IsActive\r\n\"John Doe\",30,True\r\n\"Jane Smith\",25,False", csv);
         }
+
+        [Fact]
+        public void CanSerializeRecord()
+        {
+            var testRecord = new TestRecord("Alice", 28, true);
+            var csv = testRecord.ToCsv();
+            Assert.Equal("\"Alice\",28,True", csv);
+        }
     }
 
     [CsvIncrementalSerializable]
@@ -36,5 +44,11 @@ namespace GeneratorTests
         public string Name { get; set; } = string.Empty;
         public int Age { get; set; }
         public bool IsActive { get; set; }
+    }
+  
+    [CsvIncrementalSerializable]
+    public partial record TestRecord(string Name, int Age, bool IsActive)
+    {
+        // The record can have additional methods or properties if needed
     }
 }

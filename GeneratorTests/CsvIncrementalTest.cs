@@ -57,6 +57,21 @@ namespace GeneratorTests
         }
 
         [Fact]
+        public async Task TestCsvRecordAsync()
+        {
+            var input = """
+                namespace TestNamespace;
+
+                [CsvIncrementalSerializer.CsvIncrementalSerializable]
+                public partial record Person (string Name, int Age);
+                {
+                }
+                """;
+            var (diagnostics, output) = TestHelpers.GetGeneratedOutput([new CsvIncrementalGenerator()], new(input));
+            await Verifier.Verify(output, Settings());
+        }
+
+        [Fact]
         public async Task CsvGenerator_WhenMultipleClasses_GeneratesInSeparateRegions()
         {
             // The source code to test

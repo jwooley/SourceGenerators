@@ -8,4 +8,9 @@ namespace ConsoleApp1
         public string FirstName { get; set; } = "";
         public string LastName { get; set; } = "";
     }
+
+    [CsvIncrementalSerializable]
+    public partial record TestRecord(string FirstName, string LastName)
+    {
+    }
 }

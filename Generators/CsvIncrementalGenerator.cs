@@ -63,7 +63,7 @@ public class CsvIncrementalGenerator : IIncrementalGenerator
         }
 
         sb.Append($$"""
-                public partial class {{classInfo.Name}}
+                public partial {{(classInfo.IsRecord ? "record" : "class")}} {{classInfo.Name}}
                 {
                 """);
 

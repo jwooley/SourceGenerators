@@ -20,6 +20,7 @@ public class ClassTypeInfo : IEquatable<ClassTypeInfo>
     public string Name { get; }
     public bool HasNameProperty { get; }
     public IReadOnlyList<PropertyInfo> Properties { get; }
+    public bool IsRecord { get; }
 
     public ClassTypeInfo(ITypeSymbol type)
     {
@@ -28,7 +29,7 @@ public class ClassTypeInfo : IEquatable<ClassTypeInfo>
         HasNameProperty = type.GetMembers().Any(m => m.Name == "Name"
                                                      && m is IPropertySymbol property
                                                      && property.Type.SpecialType == SpecialType.System_String);
-
+        IsRecord = type.IsRecord;
         Properties = GetProperties(type);
     }
 

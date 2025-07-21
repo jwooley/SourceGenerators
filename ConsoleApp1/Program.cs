@@ -9,3 +9,6 @@ var people = new[]
     new Person { FirstName = "Jane", LastName = "Smith" }
 };
 Console.WriteLine(Person.ToCsv(people));
+
+var testRecord = new TestRecord("Alice", "Johnson");
+Console.WriteLine(testRecord.ToCsv());

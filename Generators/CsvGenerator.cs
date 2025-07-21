@@ -8,8 +8,16 @@ using System.Text;
 
 namespace Generators
 {
-    [Generator]
-    public class CsvGenerator : ISourceGenerator
+    /// <summary>
+    /// This is the original CSV Generator that works with .NET 5. 
+    /// The ISourceGenerator interface has been deprecated and replaced with the IIncrementalGenerator interface in .NET 6 and later.
+    /// It is still included here for reference and compatibility with older projects.
+    /// The ISourceGenerator version proved to a performance bottleneck in larger projects,
+    /// because it would evaluate the entire class structure on every generation pass,
+    /// This will no longer work with .NET 6 and later versions.
+    /// </summary>
+    //[Generator]
+    public class CsvGenerator  //: ISourceGenerator
     {
         private const string csvSerializerAttributeText = @"
 using System;

@@ -1,5 +1,11 @@
 ﻿// See https://aka.ms/new-console-template for more information
 using ConsoleApp1;
-using CsvIncrementalSerializer;
 
 Console.WriteLine(new Person { FirstName = "John", LastName = "Doe" }.ToCsv());
+
+var people = new[]
+{
+    new Person { FirstName = "John", LastName = "Doe" },
+    new Person { FirstName = "Jane", LastName = "Smith" }
+};
+Console.WriteLine(Person.ToCsv(people));

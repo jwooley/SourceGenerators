@@ -1,0 +1,47 @@
+﻿using System.Linq;
+public partial class Person
+{
+    public string ToCsv() =>
+        $"\"{Name}\", {Age}";
+
+    public string ToCsvHeader() =>
+        "Name, Age";
+
+    public static string ToCsv(System.Collections.Generic.IEnumerable<Person> input)
+    {
+        var sb = new System.Text.StringBuilder();
+        if (input.Any())
+        {
+            sb.AppendLine(input.First().ToCsvHeader());
+            foreach (var item in input)
+            {
+                sb.AppendLine(item.ToCsv());
+            }
+        }
+        return sb.ToString();
+    }
+}
+
+using System.Linq;
+public partial class Works
+{
+    public string ToCsv() =>
+        $"\"{Col1}\"";
+
+    public string ToCsvHeader() =>
+        "Col1";
+
+    public static string ToCsv(System.Collections.Generic.IEnumerable<Works> input)
+    {
+        var sb = new System.Text.StringBuilder();
+        if (input.Any())
+        {
+            sb.AppendLine(input.First().ToCsvHeader());
+            foreach (var item in input)
+            {
+                sb.AppendLine(item.ToCsv());
+            }
+        }
+        return sb.ToString();
+    }
+}

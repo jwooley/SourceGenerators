@@ -165,16 +165,16 @@ internal static class TestHelpers
 
             AssertRunsEqual(runResult, runResult2, stages);
 
-            //if (!runResult2.Results[0].TrackedOutputSteps.IsEmpty)
-            //{
-            //    // verify the second run only generated cached source outputs
-            //    runResult2.Results[0]
-            //        .TrackedOutputSteps
-            //        .SelectMany(x => x.Value) // step executions
-            //        .SelectMany(x => x.Outputs) // execution results
-            //        .Should()
-            //        .OnlyContain(x => x.Reason == IncrementalStepRunReason.Cached);
-            //}
+            if (!runResult2.Results[0].TrackedOutputSteps.IsEmpty)
+            {
+                // verify the second run only generated cached source outputs
+                runResult2.Results[0]
+                    .TrackedOutputSteps
+                    .SelectMany(x => x.Value) // step executions
+                    .SelectMany(x => x.Outputs) // execution results
+                    .Should()
+                    .OnlyContain(x => x.Reason == IncrementalStepRunReason.Cached);
+            }
         }
 
         return (runResult, outputCompilation.GetDiagnostics());

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Generators.Extensions;
+namespace Generators.Helpers;
 public static class ReadOnlyCollectionExtensions
 {
     public static bool EqualsTo<T>(this IReadOnlyList<T> collection, IReadOnlyList<T> other)
@@ -31,7 +31,7 @@ public static class ReadOnlyCollectionExtensions
 
         for (var i = 0; i < collection.Count; i++)
         {
-            hashCode = (hashCode * 397) ^ collection[i].GetHashCode();
+            hashCode = hashCode * 397 ^ collection[i].GetHashCode();
         }
 
         return hashCode;

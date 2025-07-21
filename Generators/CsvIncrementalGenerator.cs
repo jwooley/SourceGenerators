@@ -1,4 +1,5 @@
-﻿using Microsoft.CodeAnalysis;
+﻿using Generators.Helpers;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.Text;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ public class CsvIncrementalGenerator : IIncrementalGenerator
             namespace CsvIncrementalSerializer;
 
             [AttributeUsage(AttributeTargets.Class)]
-            public class CsvIncrementalSerializableAttribute : Attribute
+            internal class CsvIncrementalSerializableAttribute : Attribute
             {
                 public CsvIncrementalSerializableAttribute() {}
             }
@@ -23,6 +24,8 @@ public class CsvIncrementalGenerator : IIncrementalGenerator
     public void Initialize(IncrementalGeneratorInitializationContext context)
     {
         // Add attribute to compilation once after the generator is initialized
+        // Note this strategy doesn't work if you use InternalsVisibleTo. 
+        // see https://andrewlock.net/creating-a-source-generator-part-8-solving-the-source-generator-marker-attribute-problem-part2/
         context.RegisterPostInitializationOutput(c => c.AddSource("CsvIncrementalSerializableAttribute.g.cs", SourceText.From(csvSerializerAttributeText, Encoding.UTF8)));
 
         IncrementalValuesProvider<ClassTypeInfo> classDeclaration = context.SyntaxProvider
@@ -35,7 +38,6 @@ public class CsvIncrementalGenerator : IIncrementalGenerator
             .ForAttributeWithMetadataName("CsvIncrementalSerializer.CsvIncrementalSerializableAttribute",
                  predicate: static (s, _) => true,
                  transform: static (ctx, _) => GetClassInfo(ctx))
-            .Where(static c => c is not null)
             .Collect()
             .SelectMany((classInfos, _) => classInfos.Distinct());
 

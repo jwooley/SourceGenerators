@@ -85,8 +85,8 @@ public class CsvIncrementalGenerator : IIncrementalGenerator
             }
             if (propertyCount > 0)
             {
-                sb.Append(", ");
-                header.Append(", ");
+                sb.Append(",");
+                header.Append(",");
             }
             if (propertyDeclaration.Type.Equals("string"))
             {
@@ -112,10 +112,11 @@ public class CsvIncrementalGenerator : IIncrementalGenerator
                     var sb = new System.Text.StringBuilder();
                     if (input.Any())
                     {
-                        sb.AppendLine(input.First().ToCsvHeader());
+                        sb.Append(input.First().ToCsvHeader());
                         foreach (var item in input)
                         {
-                            sb.AppendLine(item.ToCsv());
+                            sb.Append("\r\n");
+                            sb.Append(item.ToCsv());
                         }
                     }
                     return sb.ToString();

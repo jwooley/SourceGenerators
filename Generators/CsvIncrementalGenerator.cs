@@ -37,9 +37,7 @@ public class CsvIncrementalGenerator : IIncrementalGenerator
             // .NET 7 version
             .ForAttributeWithMetadataName("CsvIncrementalSerializer.CsvIncrementalSerializableAttribute",
                  predicate: static (s, _) => true,
-                 transform: static (ctx, _) => GetClassInfo(ctx))
-            .Collect()
-            .SelectMany((classInfos, _) => classInfos.Distinct());
+                 transform: static (ctx, _) => GetClassInfo(ctx));
 
         context.RegisterSourceOutput(classDeclaration,
             static (spc, source) => Execute(spc, source));

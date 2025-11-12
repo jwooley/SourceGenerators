@@ -9,7 +9,7 @@ namespace GeneratorTests
         [InlineData("jimw@slalom.com", true)]
         public void TestEmailValidation(string input, bool shouldPass)
         {
-            var regex = new System.Text.RegularExpressions.Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
+            var regex = new Regex(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$");
             var match = regex.Match(input);
             Assert.Equal(shouldPass, match.Success);
         }
@@ -24,7 +24,5 @@ namespace GeneratorTests
 
         [GeneratedRegex(@"([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", RegexOptions.IgnoreCase, "en-US")]
         private static partial Regex EmailRegex();
-
-
     }
 }
